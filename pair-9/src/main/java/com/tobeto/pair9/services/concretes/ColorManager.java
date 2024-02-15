@@ -58,4 +58,11 @@ public class ColorManager implements ColorService {
     public boolean isExistColorById(Integer id) {
         return colorRepository.existsById(id);
     }
+
+    @Override
+    public BaseResponse getColorByName(String name) {
+        Color color = colorBusinessRules.getColorByName(name);
+        var result = this.modelMapperService.forResponse().map(color,GetListColorResponse.class);
+        return new BaseResponse<>(true,result);
+    }
 }

@@ -19,4 +19,6 @@ public interface ModelService {
 
     boolean existsModelById(Integer id);
 
+    BaseResponse getModelByName(String name);
+
 }

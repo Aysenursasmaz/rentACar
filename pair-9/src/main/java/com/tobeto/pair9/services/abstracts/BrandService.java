@@ -21,4 +21,6 @@ public interface BrandService {
     BaseResponse delete(Integer id);
 
     boolean isExistBrandById(Integer id);
+
+    BaseResponse getBrandByName(String name);
 }

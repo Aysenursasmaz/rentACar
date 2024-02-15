@@ -28,6 +28,11 @@ public class ColorsController {
     }
 
 
+    @GetMapping("getByName")
+    public BaseResponse getByName(@RequestParam  String name){
+        return colorService.getColorByName(name);
+    }
+
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
     @PreAuthorize("hasAuthority('admin:add')")

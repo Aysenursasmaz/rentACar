@@ -18,4 +18,6 @@ public interface ColorService {
     BaseResponse delete(int id);
 
     boolean isExistColorById(Integer id);
+
+    BaseResponse getColorByName(String name);
 }

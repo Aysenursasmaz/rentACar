@@ -26,6 +26,10 @@ public class ModelsController {
     }
 
 
+    @GetMapping("/getByName")
+    public BaseResponse getModelByName(@RequestParam String name){
+        return modelService.getModelByName(name);
+    }
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
     public BaseResponse add(@RequestBody @Valid AddModelRequest request){

@@ -49,5 +49,4 @@ public class InvoicesController {
         return invoiceService.delete(id);
     }
 
-
 }

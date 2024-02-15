@@ -58,4 +58,11 @@ public class ModelManager implements ModelService {
     public boolean existsModelById(Integer id) {
         return modelRepository.existsById(id);
     }
+
+    @Override
+    public BaseResponse getModelByName(String name) {
+        Model model = modelBusinessRules.getModelByName(name);
+        var result = this.modelMapperService.forRequest().map(model,GetListModelResponse.class);
+        return new BaseResponse<>(true,result);
+    }
 }

@@ -8,6 +8,7 @@ import com.tobeto.pair9.repositories.BrandRepository;
 import com.tobeto.pair9.services.abstracts.BrandService;
 import com.tobeto.pair9.services.dtos.brand.requests.AddBrandRequest;
 import com.tobeto.pair9.services.dtos.brand.requests.UpdateBrandRequest;
+import com.tobeto.pair9.services.dtos.brand.responses.GetByBrandNameResponse;
 import com.tobeto.pair9.services.dtos.brand.responses.GetByIdBrandResponse;
 import com.tobeto.pair9.services.dtos.brand.responses.GetListBrandResponse;
 import com.tobeto.pair9.services.rules.BrandBusinessRules;
@@ -66,5 +67,12 @@ public class BrandManager implements BrandService {
     @Override
     public boolean isExistBrandById(Integer id) {
         return brandRepository.existsById(id);
+    }
+
+    @Override
+    public BaseResponse getBrandByName(String name) {
+        Brand brand = brandBusinessRules.getBrandByName(name);
+        var result = this.modelMapperService.forResponse().map(brand, GetByBrandNameResponse.class);
+        return new BaseResponse<>(true,result);
     }
 }
