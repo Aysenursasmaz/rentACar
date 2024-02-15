@@ -8,6 +8,7 @@ import com.tobeto.pair9.services.abstracts.CarService;
 import com.tobeto.pair9.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair9.services.dtos.car.requests.UpdateCarRequest;
 import com.tobeto.pair9.services.dtos.car.responses.GetByIdCarResponse;
+import com.tobeto.pair9.services.dtos.car.responses.GetCarPlateResponse;
 import com.tobeto.pair9.services.dtos.car.responses.GetListCarResponse;
 import com.tobeto.pair9.services.rules.CarBusinessRules;
 import lombok.AllArgsConstructor;
@@ -54,7 +55,6 @@ public class CarManager implements CarService {
 
     @Override
     public BaseResponse update(UpdateCarRequest request) {
-        carBusinessRules.isExistCarById(request.getId());
         carBusinessRules.isExistModelById(request.getModelId());
         carBusinessRules.isExistColorById(request.getColorId());
         double depositPrice =  carBusinessRules.calculateDepositPrice(request.getDailyPrice());
@@ -73,5 +73,11 @@ public class CarManager implements CarService {
     public BaseResponse delete(Integer id) {
         this.carRepository.deleteById(id);
         return new BaseResponse<>(true,Messages.carDeleted);
+    }
+
+    public BaseResponse getCarByPlate(String plate){
+        Car car = carBusinessRules.getCarByPlate(plate);
+        var result =  this.modelMapperService.forResponse().map(car, GetCarPlateResponse.class);
+        return new BaseResponse<>(true,result);
     }
 }

@@ -21,5 +21,6 @@ public interface CarService{
     BaseResponse delete(Integer id);
 
     boolean isExistById(Integer id);
+    BaseResponse getCarByPlate(String plate);
 
 }

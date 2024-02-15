@@ -51,4 +51,9 @@ public class CarsController {
     public BaseResponse delete(@PathVariable Integer id){
         return carService.delete(id);
     }
+
+    @GetMapping("/getByPlate")
+    public BaseResponse getCarByPlate(@RequestParam ("plate") String plate){
+        return carService.getCarByPlate(plate);
+    }
 }

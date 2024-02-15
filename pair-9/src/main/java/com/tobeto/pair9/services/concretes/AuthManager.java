@@ -8,9 +8,10 @@ import com.tobeto.pair9.repositories.RefreshTokenRepository;
 import com.tobeto.pair9.repositories.UserRepository;
 import com.tobeto.pair9.services.abstracts.AuthService;
 import com.tobeto.pair9.services.dtos.auth.responses.TokenResponse;
+import com.tobeto.pair9.services.dtos.user.requests.ChangePasswordRequest;
 import com.tobeto.pair9.services.dtos.user.requests.CreateUserRequest;
 import com.tobeto.pair9.services.dtos.user.requests.LoginRequest;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +24,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthManager implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
@@ -64,7 +65,7 @@ public class AuthManager implements AuthService {
     @Transactional
     public String refreshToken(String userName) {
 
-        User user = userRepository.findByUsername(userName).orElseThrow(()-> new UsernameNotFoundException(Messages.userIsNotFound));
+        User user = userRepository.findByUsername(userName).orElseThrow(()-> new RuntimeException("Kullanıcı bulunamadı"));
         Optional<RefreshToken> existingToken = tokenRepository.findByUser(user);
         if (existingToken.isEmpty()){
             throw new RuntimeException("Token bulunamadı");
@@ -82,9 +83,11 @@ public class AuthManager implements AuthService {
 
     @Transactional
     public void logout(String userName){
-        User user = userRepository.findByUsername(userName).orElseThrow(()-> new UsernameNotFoundException(Messages.userIsNotFound));
+        User user = userRepository.findByUsername(userName).orElseThrow(()-> new RuntimeException("Kullanıcı bulunamadı"));
         tokenRepository.deleteByUser(user);
     }
+
+
 
     public void saveOrUpdateRefreshToken(String token, User user) {
         // RefreshToken kontrolü
@@ -103,6 +106,27 @@ public class AuthManager implements AuthService {
         refreshToken.setToken(token);
         refreshToken.setExpiryDate(jwtService.extractExpiration(token));
         tokenRepository.save(refreshToken);
+    }
+
+    @Override
+    public void changePassword(ChangePasswordRequest request){
+        /*var user = userRepository.findByEmail(request.ge)
+
+        //check if the current password is correct
+        if(!passwordEncoder.matches(request.getCurrentPassword(),user.getPassword())){
+            throw new IllegalStateException("Wrong password");
+        }
+        if(!request.getNewPassword().equals(request.getConfirmationPassword())){
+            throw new IllegalStateException("Password are not the same");
+        }
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        userRepository.save(user);*/
+    }
+
+    @Override
+    public boolean forgotPassword(String email) {
+        User user =  userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException(Messages.userIsNotFound));
+        return user!=null;
     }
 
     @Override
