@@ -43,16 +43,4 @@ public class AuthController {
         authService.logout(userName);
         return ResponseEntity.ok().body("Logout successful");
     }
-
-    @PatchMapping("/changePassword")
-    public ResponseEntity<?> changePassword(@RequestBody ChangePasswordRequest request){
-        authService.changePassword(request);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/forgotPassword")
-    public ResponseEntity<?> forgotPassword(@RequestParam("email") String email){
-         authService.forgotPassword(email);
-         return ResponseEntity.ok().build();
-    }
 }

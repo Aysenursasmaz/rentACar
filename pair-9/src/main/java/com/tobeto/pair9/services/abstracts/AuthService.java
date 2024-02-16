@@ -17,7 +17,5 @@ public interface AuthService {
 
     void logout(String userName);
 
-    void changePassword(ChangePasswordRequest request);
 
-    boolean forgotPassword(String email);
 }

@@ -1,21 +1,18 @@
 package com.tobeto.pair9.services.concretes;
 
 import com.tobeto.pair9.core.services.JwtService;
-import com.tobeto.pair9.core.utilities.results.Messages;
 import com.tobeto.pair9.entities.concretes.RefreshToken;
 import com.tobeto.pair9.entities.concretes.User;
 import com.tobeto.pair9.repositories.RefreshTokenRepository;
 import com.tobeto.pair9.repositories.UserRepository;
 import com.tobeto.pair9.services.abstracts.AuthService;
 import com.tobeto.pair9.services.dtos.auth.responses.TokenResponse;
-import com.tobeto.pair9.services.dtos.user.requests.ChangePasswordRequest;
 import com.tobeto.pair9.services.dtos.user.requests.CreateUserRequest;
 import com.tobeto.pair9.services.dtos.user.requests.LoginRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -108,26 +105,6 @@ public class AuthManager implements AuthService {
         tokenRepository.save(refreshToken);
     }
 
-    @Override
-    public void changePassword(ChangePasswordRequest request){
-        /*var user = userRepository.findByEmail(request.ge)
-
-        //check if the current password is correct
-        if(!passwordEncoder.matches(request.getCurrentPassword(),user.getPassword())){
-            throw new IllegalStateException("Wrong password");
-        }
-        if(!request.getNewPassword().equals(request.getConfirmationPassword())){
-            throw new IllegalStateException("Password are not the same");
-        }
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
-        userRepository.save(user);*/
-    }
-
-    @Override
-    public boolean forgotPassword(String email) {
-        User user =  userRepository.findByEmail(email).orElseThrow(()-> new UsernameNotFoundException(Messages.userIsNotFound));
-        return user!=null;
-    }
 
     @Override
     public boolean existsId(int id) {

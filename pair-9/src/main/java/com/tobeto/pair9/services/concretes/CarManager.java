@@ -60,7 +60,7 @@ public class CarManager implements CarService {
         double depositPrice =  carBusinessRules.calculateDepositPrice(request.getDailyPrice());
         Car car = this.modelMapperService.forRequest()
                 .map(request,Car.class);
-        car.setDepositPrice(carBusinessRules.calculateDepositPrice(request.getDailyPrice()));
+        car.setDepositPrice(depositPrice);
         this.carRepository.save(car);
         return new BaseResponse<>(true,Messages.carUpdated);
     }
