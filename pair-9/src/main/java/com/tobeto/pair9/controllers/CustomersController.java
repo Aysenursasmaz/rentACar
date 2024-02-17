@@ -1,6 +1,7 @@
 package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.abstracts.CustomerService;
 import com.tobeto.pair9.services.dtos.customer.requests.AddCustomerRequest;
 import com.tobeto.pair9.services.dtos.customer.requests.UpdateCustomerRequest;
@@ -21,7 +22,7 @@ public class CustomersController {
     private CustomerService customerService;
 
     @GetMapping("/getAll")
-    public BaseResponse<List<GetListCustomerResponse>> getAll(){
+    public DataResult<List<GetListCustomerResponse>> getAll(){
         return customerService.getAll();
     }
 

@@ -1,5 +1,6 @@
 package com.tobeto.pair9.services.abstracts;
 
+import com.tobeto.pair9.core.utilities.results.BaseResponse;
 import com.tobeto.pair9.entities.concretes.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -11,5 +12,7 @@ public interface UserService extends UserDetailsService {
     User getUserByUsername(String username);
 
     User getUserByEmail(String email);
+
+    BaseResponse save(User user);
 
 }

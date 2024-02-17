@@ -2,6 +2,7 @@ package com.tobeto.pair9.services.concretes;
 
 import com.tobeto.pair9.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.core.utilities.results.Messages;
 import com.tobeto.pair9.entities.concretes.Rental;
 import com.tobeto.pair9.repositories.RentalRepository;
@@ -25,12 +26,12 @@ public class RentalManager implements RentalService {
     private final RentalBusinessRules rentalBusinessRules;
 
     @Override
-    public BaseResponse<List<GetListRentalResponse>> getAll() {
+    public DataResult<List<GetListRentalResponse>> getAll() {
         List<Rental> rentals = rentalRepository.findAll();
         var result = rentals.stream()
                 .map(rental->this.modelMapperService.forResponse()
                         .map(rental, GetListRentalResponse.class)).toList();
-        return new BaseResponse<>(true,result);
+        return new DataResult<>(result);
     }
 
     @Override
@@ -42,7 +43,7 @@ public class RentalManager implements RentalService {
         rental.setUser(rentalBusinessRules.getUserByUsername(request.getUsername()));
         this.rentalRepository.save(rental);
         var result = this.modelMapperService.forResponse().map(rental,AddRentalResponse.class);
-        return new BaseResponse<>(true, result,Messages.rentalAdded);
+        return new BaseResponse(true,Messages.rentalAdded);
     }
 
     @Override
@@ -54,13 +55,13 @@ public class RentalManager implements RentalService {
         rental.setId(null);
         rental.setUser(rentalBusinessRules.getUserByUsername(request.getUsername()));
         this.rentalRepository.save(rental);
-        return new BaseResponse<>(true, Messages.rentalUpdated);
+        return new BaseResponse(true, Messages.rentalUpdated);
     }
 
     @Override
     public BaseResponse delete(Integer id) {
         this.rentalRepository.deleteById(id);
-        return new BaseResponse<>(true, Messages.rentalDeleted);
+        return new BaseResponse(true, Messages.rentalDeleted);
     }
 
     @Override

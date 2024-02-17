@@ -1,6 +1,7 @@
 package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.abstracts.CarService;
 import com.tobeto.pair9.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair9.services.dtos.car.requests.UpdateCarRequest;
@@ -23,13 +24,13 @@ public class CarsController {
 
 
     @GetMapping("/getAll")
-    public BaseResponse<List<GetListCarResponse>> getAll(){
+    public DataResult<List<GetListCarResponse>> getAll(){
         return carService.getAll();
     }
 
 
     @GetMapping("/getById/{id}")
-    public BaseResponse<GetByIdCarResponse> getById(@PathVariable Integer id){
+    public DataResult<GetByIdCarResponse> getById(@PathVariable Integer id){
         return carService.getById(id);
     }
 
@@ -53,7 +54,7 @@ public class CarsController {
     }
 
     @GetMapping("/getByPlate")
-    public BaseResponse getCarByPlate(@RequestParam ("plate") String plate){
+    public DataResult getCarByPlate(@RequestParam ("plate") String plate){
         return carService.getCarByPlate(plate);
     }
 }

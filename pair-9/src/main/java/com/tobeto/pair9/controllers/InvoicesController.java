@@ -1,6 +1,7 @@
 package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.abstracts.InvoiceService;
 import com.tobeto.pair9.services.dtos.invoice.requests.AddInvoiceRequest;
 import com.tobeto.pair9.services.dtos.invoice.requests.UpdateInvoiceRequest;
@@ -23,7 +24,7 @@ public class InvoicesController {
 
     @GetMapping("/getAll")
     @PreAuthorize("hasAuthority('admin:read')")
-    public BaseResponse<List<GetListInvoiceResponse>> getAll(){
+    public DataResult<List<GetListInvoiceResponse>> getAll(){
         return invoiceService.getAll();
     }
 

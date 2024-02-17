@@ -2,6 +2,7 @@ package com.tobeto.pair9.services.concretes;
 
 import com.tobeto.pair9.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.core.utilities.results.Messages;
 import com.tobeto.pair9.entities.concretes.Color;
 import com.tobeto.pair9.repositories.ColorRepository;
@@ -25,10 +26,10 @@ public class ColorManager implements ColorService {
     private final ColorBusinessRules colorBusinessRules;
 
     @Override
-    public BaseResponse<List<GetListColorResponse>> getAll() {
+    public DataResult<List<GetListColorResponse>> getAll() {
         List<Color> colors = colorRepository.findAll();
         var result = colors.stream().map(color -> this.modelMapperService.forResponse().map(color,GetListColorResponse.class)).toList();
-        return new BaseResponse<>(true,result);
+        return new DataResult<>(result);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class ColorManager implements ColorService {
         Color color = this.modelMapperService.forRequest().map(request,Color.class);
         color.setId(null);
         this.colorRepository.save(color);
-        return new BaseResponse<>(true, Messages.colorAdded);
+        return new BaseResponse(true, Messages.colorAdded);
     }
 
     @Override
@@ -45,13 +46,13 @@ public class ColorManager implements ColorService {
         colorBusinessRules.isExistColorById(request.getId());
         Color color = this.modelMapperService.forRequest().map(request,Color.class);
         this.colorRepository.save(color);
-        return new BaseResponse<>(true, Messages.colorUpdated);
+        return new BaseResponse(true, Messages.colorUpdated);
     }
 
     @Override
     public BaseResponse delete(int id) {
         this.colorRepository.deleteById(id);
-        return new BaseResponse<>(true,Messages.colorDeleted);
+        return new BaseResponse(true,Messages.colorDeleted);
     }
 
     @Override
@@ -60,9 +61,9 @@ public class ColorManager implements ColorService {
     }
 
     @Override
-    public BaseResponse getColorByName(String name) {
+    public DataResult getColorByName(String name) {
         Color color = colorBusinessRules.getColorByName(name);
         var result = this.modelMapperService.forResponse().map(color,GetListColorResponse.class);
-        return new BaseResponse<>(true,result);
+        return new DataResult<>(result);
     }
 }

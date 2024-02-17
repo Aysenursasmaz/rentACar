@@ -2,15 +2,12 @@ package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.services.abstracts.AuthService;
 import com.tobeto.pair9.services.dtos.auth.responses.TokenResponse;
-import com.tobeto.pair9.services.dtos.user.requests.ChangePasswordRequest;
 import com.tobeto.pair9.services.dtos.user.requests.CreateUserRequest;
 import com.tobeto.pair9.services.dtos.user.requests.LoginRequest;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/auth")

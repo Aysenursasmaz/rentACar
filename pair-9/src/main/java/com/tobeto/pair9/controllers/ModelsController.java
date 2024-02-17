@@ -1,6 +1,7 @@
 package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.abstracts.ModelService;
 import com.tobeto.pair9.services.dtos.model.requests.AddModelRequest;
 import com.tobeto.pair9.services.dtos.model.requests.UpdateModelRequest;
@@ -21,13 +22,13 @@ public class ModelsController {
     private ModelService modelService;
 
     @GetMapping("/getAll")
-    public BaseResponse<List<GetListModelResponse>> getAll(){
+    public DataResult<List<GetListModelResponse>> getAll(){
         return modelService.getAll();
     }
 
 
     @GetMapping("/getByName")
-    public BaseResponse getModelByName(@RequestParam String name){
+    public DataResult getModelByName(@RequestParam String name){
         return modelService.getModelByName(name);
     }
     @PostMapping("/add")

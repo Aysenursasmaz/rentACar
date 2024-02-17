@@ -24,12 +24,12 @@ public class InvoiceManager implements InvoiceService {
     private final InvoiceBusinessRules invoiceBusinessRules;
 
     @Override
-    public BaseResponse<List<GetListInvoiceResponse>> getAll() {
+    public DataResult<List<GetListInvoiceResponse>> getAll() {
         List<Invoice> invoices = invoiceRepository.findAll();
         var result = invoices.stream()
                 .map(invoice -> this.modelMapperService.forResponse()
                         .map(invoice,GetListInvoiceResponse.class)).toList();
-        return new BaseResponse<>(true,result);
+        return new DataResult<>(result);
     }
 
     @Override
@@ -54,13 +54,13 @@ public class InvoiceManager implements InvoiceService {
                 .map(request,Invoice.class);
         invoice.setInvoiceNo(invoiceBusinessRules.isExistInvoiceByNumber());
         this.invoiceRepository.save(invoice);
-        return new BaseResponse<>(true, Messages.invoiceUpdated);
+        return new BaseResponse(true, Messages.invoiceUpdated);
     }
 
     @Override
     public BaseResponse delete(Integer id) {
         this.invoiceRepository.deleteById(id);
-        return new BaseResponse<>(true, Messages.invoiceDeleted);
+        return new BaseResponse(true, Messages.invoiceDeleted);
     }
 
     @Override

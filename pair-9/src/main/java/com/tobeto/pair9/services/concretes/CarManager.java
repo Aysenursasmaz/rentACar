@@ -26,19 +26,19 @@ public class CarManager implements CarService {
     private final CarBusinessRules carBusinessRules;
 
     @Override
-    public BaseResponse<List<GetListCarResponse>> getAll() {
+    public DataResult<List<GetListCarResponse>> getAll() {
         List<Car> cars = carRepository.findAll();
         var result = cars.stream()
                 .map(car->this.modelMapperService.forResponse()
                         .map(car, GetListCarResponse.class)).collect(Collectors.toList());
-        return new BaseResponse(true,result);
+        return new DataResult(result);
     }
 
     @Override
-    public BaseResponse<GetByIdCarResponse> getById(Integer id) {
+    public DataResult<GetByIdCarResponse> getById(Integer id) {
         Car car = this.carRepository.findById(id).orElseThrow();
         var result = this.modelMapperService.forResponse().map(car, GetByIdCarResponse.class);
-        return new BaseResponse(false,result);
+        return new DataResult(result);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class CarManager implements CarService {
         car.setId(null);
         car.setDepositPrice(carBusinessRules.calculateDepositPrice(request.getDailyPrice()));
         this.carRepository.save(car);
-        return new BaseResponse<>(true, Messages.carAdded);
+        return new BaseResponse(true, Messages.carAdded);
     }
 
     @Override
@@ -62,7 +62,7 @@ public class CarManager implements CarService {
                 .map(request,Car.class);
         car.setDepositPrice(depositPrice);
         this.carRepository.save(car);
-        return new BaseResponse<>(true,Messages.carUpdated);
+        return new BaseResponse(true,Messages.carUpdated);
     }
 
     public boolean isExistById(Integer id) {
@@ -72,12 +72,12 @@ public class CarManager implements CarService {
     @Override
     public BaseResponse delete(Integer id) {
         this.carRepository.deleteById(id);
-        return new BaseResponse<>(true,Messages.carDeleted);
+        return new BaseResponse(true,Messages.carDeleted);
     }
 
-    public BaseResponse getCarByPlate(String plate){
+    public DataResult getCarByPlate(String plate){
         Car car = carBusinessRules.getCarByPlate(plate);
         var result =  this.modelMapperService.forResponse().map(car, GetCarPlateResponse.class);
-        return new BaseResponse<>(true,result);
+        return new DataResult<>(result);
     }
 }

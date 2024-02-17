@@ -1,10 +1,9 @@
 package com.tobeto.pair9.services.concretes;
 
 import com.tobeto.pair9.core.utilities.exceptions.UserBusinessException;
+import com.tobeto.pair9.core.utilities.results.BaseResponse;
 import com.tobeto.pair9.core.utilities.results.Messages;
-import com.tobeto.pair9.entities.concretes.ForgotPasswordToken;
 import com.tobeto.pair9.entities.concretes.User;
-import com.tobeto.pair9.repositories.ForgotPasswordRepository;
 import com.tobeto.pair9.repositories.UserRepository;
 import com.tobeto.pair9.services.abstracts.UserService;
 import lombok.AllArgsConstructor;
@@ -22,7 +21,7 @@ public class UserManager implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("No user found"));
+        return userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException(Messages.userIsNotFound));
     }
 
     @Override
@@ -42,5 +41,11 @@ public class UserManager implements UserService {
             return user.get();
         }
         throw new UserBusinessException(Messages.userIsNotFound);
+    }
+
+    @Override
+    public BaseResponse save(User user) {
+        userRepository.save(user);
+        return new BaseResponse(true,Messages.userAdded);
     }
 }

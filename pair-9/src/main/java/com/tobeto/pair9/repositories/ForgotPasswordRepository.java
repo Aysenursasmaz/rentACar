@@ -7,5 +7,4 @@ public interface ForgotPasswordRepository extends JpaRepository<ForgotPasswordTo
 
     ForgotPasswordToken findByToken(String token);
 
-
 }

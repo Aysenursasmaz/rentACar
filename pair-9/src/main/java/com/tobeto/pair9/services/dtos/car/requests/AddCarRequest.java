@@ -23,12 +23,12 @@ public class AddCarRequest {
 
     @Min(value=2005)
     @Max(value=2024)
-    private int year;
+    private int modelYear;
 
     @Positive
     private double dailyPrice;
 
-    private short minFindeksRate;
+    private int minFindeksRate;
 
     private String transmissionType;
 
@@ -44,6 +44,8 @@ public class AddCarRequest {
     private Integer seatCapacity;
 
     private String imagePath;
+
+    private String location;
 
     @Positive
     private Integer modelId;

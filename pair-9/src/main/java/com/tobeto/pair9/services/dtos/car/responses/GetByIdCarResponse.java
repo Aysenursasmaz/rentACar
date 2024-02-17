@@ -15,7 +15,7 @@ public class GetByIdCarResponse {
 
     private String plate;
 
-    private int year;
+    private int modelYear;
 
     private double dailyPrice;
 
@@ -36,6 +36,8 @@ public class GetByIdCarResponse {
     private int seatCapacity;
 
     private String imagePath;
+
+    private String location;
 
     private String  modelName;
 

@@ -17,7 +17,7 @@ public class GetCarPlateResponse {
 
     private String plate;
 
-    private int year;
+    private int modelYear;
 
     private double dailyPrice;
 
@@ -38,6 +38,8 @@ public class GetCarPlateResponse {
     private int seatCapacity;
 
     private String imagePath;
+
+    private String location;
 
     private GetListModelResponse model;
 

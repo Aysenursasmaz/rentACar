@@ -23,10 +23,10 @@ public class ModelManager implements ModelService {
     private final ModelBusinessRules modelBusinessRules;
 
     @Override
-    public BaseResponse<List<GetListModelResponse>> getAll() {
+    public DataResult<List<GetListModelResponse>> getAll() {
         List<Model> models = modelRepository.findAll();
         var result = models.stream().map(model -> this.modelMapperService.forResponse().map(model, GetListModelResponse.class)).toList();
-        return new BaseResponse<>(true,result);
+        return new DataResult<>(result);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class ModelManager implements ModelService {
         Model model = this.modelMapperService.forRequest().map(request,Model.class);
         model.setId(null);
         this.modelRepository.save(model);
-        return new BaseResponse<>(true, Messages.modelAdded);
+        return new BaseResponse(true, Messages.modelAdded);
     }
 
     @Override
@@ -45,13 +45,13 @@ public class ModelManager implements ModelService {
         modelBusinessRules.isExistBrandById(request.getBrandId());
         Model model = this.modelMapperService.forRequest().map(request,Model.class);
         this.modelRepository.save(model);
-        return new BaseResponse<>(true, Messages.modelUpdated);
+        return new BaseResponse(true, Messages.modelUpdated);
     }
 
     @Override
     public BaseResponse delete(int id) {
         this.modelRepository.deleteById(id);
-        return new BaseResponse<>(true, Messages.modelDeleted);
+        return new BaseResponse(true, Messages.modelDeleted);
     }
 
     @Override
@@ -60,9 +60,9 @@ public class ModelManager implements ModelService {
     }
 
     @Override
-    public BaseResponse getModelByName(String name) {
+    public DataResult getModelByName(String name) {
         Model model = modelBusinessRules.getModelByName(name);
         var result = this.modelMapperService.forRequest().map(model,GetListModelResponse.class);
-        return new BaseResponse<>(true,result);
+        return new DataResult<>(result);
     }
 }

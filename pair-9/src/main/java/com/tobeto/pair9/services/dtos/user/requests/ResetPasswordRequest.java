@@ -1,14 +1,17 @@
 package com.tobeto.pair9.services.dtos.user.requests;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-public class ChangePasswordRequest {
+@AllArgsConstructor
+@NoArgsConstructor
 
-    private String email;
-    private String currentPassword;
+public class ResetPasswordRequest {
+
     private String newPassword;
     private String confirmationPassword;
 

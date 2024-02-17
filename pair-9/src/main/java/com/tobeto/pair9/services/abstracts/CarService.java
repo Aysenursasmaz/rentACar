@@ -1,6 +1,7 @@
 package com.tobeto.pair9.services.abstracts;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair9.services.dtos.car.requests.UpdateCarRequest;
 import com.tobeto.pair9.services.dtos.car.responses.GetByIdCarResponse;
@@ -10,9 +11,9 @@ import java.util.List;
 
 public interface CarService{
 
-    BaseResponse<List<GetListCarResponse>> getAll();
+    DataResult<List<GetListCarResponse>> getAll();
 
-    BaseResponse<GetByIdCarResponse> getById(Integer id);
+    DataResult<GetByIdCarResponse> getById(Integer id);
 
     BaseResponse add(AddCarRequest request);
 
@@ -22,6 +23,6 @@ public interface CarService{
 
     boolean isExistById(Integer id);
 
-    BaseResponse getCarByPlate(String plate);
+    DataResult getCarByPlate(String plate);
 
 }

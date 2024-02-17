@@ -1,6 +1,7 @@
 package com.tobeto.pair9.services.abstracts;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.dtos.model.requests.AddModelRequest;
 import com.tobeto.pair9.services.dtos.model.requests.UpdateModelRequest;
 import com.tobeto.pair9.services.dtos.model.responses.GetListModelResponse;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface ModelService {
 
-    BaseResponse<List<GetListModelResponse>> getAll();
+    DataResult<List<GetListModelResponse>> getAll();
 
     BaseResponse add(AddModelRequest request);
 
@@ -19,6 +20,6 @@ public interface ModelService {
 
     boolean existsModelById(Integer id);
 
-    BaseResponse getModelByName(String name);
+    DataResult getModelByName(String name);
 
 }
