@@ -6,6 +6,7 @@ import com.tobeto.pair9.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
 
 
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.core.utilities.results.Messages;
 import com.tobeto.pair9.entities.concretes.Brand;
 import com.tobeto.pair9.repositories.BrandRepository;
@@ -32,7 +33,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BrandManagerTest {
-    /*@InjectMocks
+    @InjectMocks
     private BrandManager brandManager;
     @Mock
     private BrandRepository brandRepository;
@@ -68,10 +69,10 @@ class BrandManagerTest {
                 .thenReturn(response);
 
         // When
-        BaseResponse<GetByIdBrandResponse> result = brandManager.getById(id);
+        DataResult<GetByIdBrandResponse> result = brandManager.getById(id);
 
         // Then
-        assertTrue(result.isSuccess());
+
         assertEquals(response.getId(), result.getData().getId());
     }
 
@@ -92,7 +93,7 @@ class BrandManagerTest {
         when(modelMapperService.forResponse().map(brands.get(1), GetListBrandResponse.class))
                 .thenReturn(new GetListBrandResponse());
 
-        BaseResponse<List<GetListBrandResponse>> result = brandManager.getAll();
+        DataResult<List<GetListBrandResponse>> result = brandManager.getAll();
 
         assertEquals(2,result.getData().size());
 
@@ -170,5 +171,5 @@ class BrandManagerTest {
         boolean exists = brandManager.isExistBrandById(id);
         assertTrue(exists);
     }
-*/
+
 }

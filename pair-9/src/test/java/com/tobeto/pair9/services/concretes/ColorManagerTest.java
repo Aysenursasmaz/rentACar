@@ -5,6 +5,7 @@ import com.tobeto.pair9.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
 
 
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.entities.concretes.Brand;
 import com.tobeto.pair9.entities.concretes.Color;
 import com.tobeto.pair9.repositories.ColorRepository;
@@ -34,7 +35,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ColorManagerTest {
-    /*@InjectMocks
+    @InjectMocks
     private ColorManager colorManager;
     @Mock
     private ColorRepository colorRepository;
@@ -46,7 +47,7 @@ class ColorManagerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        colorManager = new ColorManager(colorRepository,modelMapperService,colorBusinessRules);
+        colorManager = new ColorManager(colorRepository, modelMapperService, colorBusinessRules);
     }
 
     @AfterEach
@@ -54,8 +55,8 @@ class ColorManagerTest {
     }
 
     @Test
-    void getAll_itShouldReturnListOfColorDto(){
-        List<Color> colors = Arrays.asList(new Color(),new Color());
+    void getAll_itShouldReturnListOfColorDto() {
+        List<Color> colors = Arrays.asList(new Color(), new Color());
         ModelMapper mockedModelMapper = Mockito.mock(ModelMapper.class);
         when(modelMapperService.forResponse()).thenReturn(mockedModelMapper);
 
@@ -68,9 +69,9 @@ class ColorManagerTest {
         when(modelMapperService.forResponse().map(colors.get(1), GetListColorResponse.class))
                 .thenReturn(new GetListColorResponse());
 
-     BaseResponse<List<GetListColorResponse>> result = colorManager.getAll();
+        DataResult<List<GetListColorResponse>> result = colorManager.getAll();
 
-        assertEquals(2,result.getData().size());
+        assertEquals(2, result.getData().size());
     }
 
     @Test
@@ -81,7 +82,7 @@ class ColorManagerTest {
         when(modelMapperService.forRequest()).thenReturn(mockedModelMapper);
 
 
-        when(modelMapperService.forRequest().map(request,Color.class))
+        when(modelMapperService.forRequest().map(request, Color.class))
                 .thenReturn(new Color());
 
         BaseResponse result = colorManager.add(request);
@@ -97,51 +98,54 @@ class ColorManagerTest {
         ModelMapper mockedModelMapper = Mockito.mock(ModelMapper.class);
         when(modelMapperService.forRequest()).thenReturn(mockedModelMapper);
 
-        when(modelMapperService.forRequest().map(request,Color.class))
+        when(modelMapperService.forRequest().map(request, Color.class))
                 .thenReturn(new Color());
 
-      BaseResponse result = colorManager.update(request);
+        BaseResponse result = colorManager.update(request);
 
         assertTrue(result.isSuccess());
     }
 
 
     @Test
-    void  delete_ShouldDeleteColor() {
-        int id = 1 ;
+    void delete_ShouldDeleteColor() {
+        int id = 1;
         colorManager.delete(id);
         verify(colorRepository, times(1)).deleteById(id);
     }
 
     @Test
-    void colorNameAlreadyExistsShouldThrowException(){
+    void colorNameAlreadyExistsShouldThrowException() {
         String name = "Green";
-    ColorBusinessRules colorBusinessRules = new ColorBusinessRules(colorRepository);
+        ColorBusinessRules colorBusinessRules = new ColorBusinessRules(colorRepository);
         when(colorRepository.existsByName(name))
                 .thenReturn(true);
 
-        assertThrows(ColorBusinessException.class,()->colorBusinessRules.isExistColorByName(name));
+        assertThrows(ColorBusinessException.class, () -> colorBusinessRules.isExistColorByName(name));
         verify(colorRepository, never()).save(any());
 
     }
-    @Test
-    void colorIdNotExistUpdateMethodShouldThrowException(){
 
-       int id = 2;
+    @Test
+    void colorIdNotExistUpdateMethodShouldThrowException() {
+
+        int id = 2;
         ColorBusinessRules colorBusinessRules = new ColorBusinessRules(colorRepository);
 
         when(colorRepository.existsById(id))
                 .thenReturn(false);
 
-        assertThrows(ColorBusinessException.class,()->colorBusinessRules.isExistColorById(id));
+        assertThrows(ColorBusinessException.class, () -> colorBusinessRules.isExistColorById(id));
 
     }
+
     @Test
-    void testExistsColorId(){
+    void testExistsColorId() {
         int id = 1;
         when(colorRepository.existsById(id)).thenReturn(true);
 
         boolean exists = colorManager.isExistColorById(id);
         assertTrue(exists);
-    }*/
+
+    }
 }

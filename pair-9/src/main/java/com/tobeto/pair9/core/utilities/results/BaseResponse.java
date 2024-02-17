@@ -10,6 +10,14 @@ public class BaseResponse {
 
     private String message ="Success";
 
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
     public BaseResponse(boolean success, String message) {
         this.success = success;
         this.message = message;
