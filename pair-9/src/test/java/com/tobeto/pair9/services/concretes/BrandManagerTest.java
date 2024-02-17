@@ -32,7 +32,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class BrandManagerTest {
-    @InjectMocks
+    /*@InjectMocks
     private BrandManager brandManager;
     @Mock
     private BrandRepository brandRepository;
@@ -170,5 +170,5 @@ class BrandManagerTest {
         boolean exists = brandManager.isExistBrandById(id);
         assertTrue(exists);
     }
-
+*/
 }

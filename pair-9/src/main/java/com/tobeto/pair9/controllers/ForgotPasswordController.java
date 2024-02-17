@@ -1,7 +1,6 @@
 package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
-import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.abstracts.ForgotPasswordService;
 import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;

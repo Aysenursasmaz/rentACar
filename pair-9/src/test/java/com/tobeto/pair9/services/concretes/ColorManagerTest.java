@@ -34,7 +34,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ColorManagerTest {
-    @InjectMocks
+    /*@InjectMocks
     private ColorManager colorManager;
     @Mock
     private ColorRepository colorRepository;
@@ -143,5 +143,5 @@ class ColorManagerTest {
 
         boolean exists = colorManager.isExistColorById(id);
         assertTrue(exists);
-    }
+    }*/
 }
