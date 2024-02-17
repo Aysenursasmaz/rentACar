@@ -1,6 +1,7 @@
 package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.abstracts.ColorService;
 import com.tobeto.pair9.services.dtos.color.requests.AddColorRequest;
 import com.tobeto.pair9.services.dtos.color.requests.UpdateColorRequest;
@@ -23,10 +24,15 @@ public class ColorsController {
 
     @GetMapping("/getAll")
     @PreAuthorize("hasAuthority('admin:read')")
-    public BaseResponse<List<GetListColorResponse>> getAll(){
+    public DataResult<List<GetListColorResponse>> getAll(){
         return colorService.getAll();
     }
 
+
+    @GetMapping("getByName")
+    public DataResult getByName(@RequestParam  String name){
+        return colorService.getColorByName(name);
+    }
 
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)

@@ -40,6 +40,4 @@ public class AuthController {
         authService.logout(userName);
         return ResponseEntity.ok().body("Logout successful");
     }
-
-
 }

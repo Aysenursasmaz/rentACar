@@ -22,7 +22,7 @@ public class UpdateCarRequest {
 
     @Min(value=2005,message ="Year must be greater than 2005" )
     @Max(value=2024,message ="Year must be smaller than 2024")
-    private short modelYear;
+    private int modelYear;
 
     @Positive(message = "Price must be greater than zero")
     private Float dailyPrice;;
@@ -42,6 +42,8 @@ public class UpdateCarRequest {
     private Integer seatCapacity;
 
     private String imagePath;
+
+    private String location;
 
     @Positive(message = "Id must be greater than zero")
     private Integer modelId;
