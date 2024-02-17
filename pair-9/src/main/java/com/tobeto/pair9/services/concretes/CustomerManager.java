@@ -37,7 +37,7 @@ public class CustomerManager implements CustomerService {
     @Override
     public BaseResponse add(AddCustomerRequest request) {
         if (customerRepository.existsCustomerByIdentityNumber(request.getIdentityNumber()) || customerRepository.existsCustomerByUserUsername(request.getUsername())){
-            return new BaseResponse<>(true, "Customer already exists");
+            return new BaseResponse(true, "Customer already exists");
         }
         customerBusinessRules.isExistCustomerByIdentityNumber(request.getIdentityNumber());
         customerBusinessRules.isExistUserByUserName(request.getUsername());
