@@ -1,6 +1,7 @@
 package com.tobeto.pair9.services.concretes;
 
 import com.tobeto.pair9.core.services.JwtService;
+import com.tobeto.pair9.core.utilities.exceptions.UserBusinessException;
 import com.tobeto.pair9.core.utilities.results.Messages;
 import com.tobeto.pair9.entities.concretes.RefreshToken;
 import com.tobeto.pair9.entities.concretes.User;
@@ -10,11 +11,10 @@ import com.tobeto.pair9.services.abstracts.AuthService;
 import com.tobeto.pair9.services.dtos.auth.responses.TokenResponse;
 import com.tobeto.pair9.services.dtos.user.requests.CreateUserRequest;
 import com.tobeto.pair9.services.dtos.user.requests.LoginRequest;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AuthManager implements AuthService {
 
     private final PasswordEncoder passwordEncoder;
@@ -35,7 +35,7 @@ public class AuthManager implements AuthService {
     @Override
     public void register(CreateUserRequest createUserRequest) {
         if(existEmail(createUserRequest.getEmail())){
-            throw new RuntimeException("User already saved");
+            throw new UserBusinessException(Messages.userAlreadySaved);
         }
         User user = User.builder()
                 .username(createUserRequest.getUsername())
@@ -51,7 +51,7 @@ public class AuthManager implements AuthService {
         Authentication authentication = authenticationManager
                 .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
         if (authentication.isAuthenticated()){
-            var user = userRepository.findByUsername(loginRequest.getUserName()).orElseThrow(()-> new RuntimeException("Kullanıcı bulunamadı"));
+            var user = userRepository.findByUsername(loginRequest.getUserName()).orElseThrow(()-> new UserBusinessException(Messages.userIsNotFound));
             String accessToken = jwtService.generateToken(user);
             String refreshToken = jwtService.generateRefreshToken(user);
             saveOrUpdateRefreshToken(refreshToken, user);
@@ -64,25 +64,25 @@ public class AuthManager implements AuthService {
     @Transactional
     public String refreshToken(String userName) {
 
-        User user = userRepository.findByUsername(userName).orElseThrow(()-> new UsernameNotFoundException(Messages.userIsNotFound));
+        User user = userRepository.findByUsername(userName).orElseThrow(()-> new UserBusinessException(Messages.userIsNotFound));
         Optional<RefreshToken> existingToken = tokenRepository.findByUser(user);
         if (existingToken.isEmpty()){
-            throw new RuntimeException("Token bulunamadı");
+            throw new UserBusinessException(Messages.tokenIsNotFound);
         }
         RefreshToken refreshToken = existingToken.get();
         if (refreshToken.getExpiryDate().before(new Date())){
             tokenRepository.deleteByUser(user);
-            throw new RuntimeException("Token süresi dolmuş");
+            throw new UserBusinessException(Messages.tokenIsExpired);
         }
         if (!jwtService.validateToken(refreshToken.getToken(), userName)){
-            throw new RuntimeException("Token geçerli değil");
+            throw new UserBusinessException(Messages.tokenIsNotValid);
         }
         return jwtService.generateToken(user);
     }
 
     @Transactional
     public void logout(String userName){
-        User user = userRepository.findByUsername(userName).orElseThrow(()-> new UsernameNotFoundException(Messages.userIsNotFound));
+        User user = userRepository.findByUsername(userName).orElseThrow(()-> new UserBusinessException(Messages.userIsNotFound));
         tokenRepository.deleteByUser(user);
     }
 
@@ -93,9 +93,7 @@ public class AuthManager implements AuthService {
         if (existingToken.isPresent()) {
             // Mevcut token varsa güncelle
             refreshToken = existingToken.get();
-            System.out.println("Token already saved for user "+ user.getId() + ", updating...");
         } else {
-            System.out.println("Token not found for user "+ user.getId() + ", creating new...");
             // Yoksa yeni bir token oluştur
             refreshToken = new RefreshToken();
             refreshToken.setUser(user);
@@ -104,6 +102,7 @@ public class AuthManager implements AuthService {
         refreshToken.setExpiryDate(jwtService.extractExpiration(token));
         tokenRepository.save(refreshToken);
     }
+
 
     @Override
     public boolean existsId(int id) {

@@ -1,15 +1,17 @@
 package com.tobeto.pair9.services.dtos.car.responses;
 
+import com.tobeto.pair9.services.dtos.color.responses.GetListColorResponse;
+import com.tobeto.pair9.services.dtos.model.responses.GetListModelResponse;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetByIdCarResponse {
+@Builder
+public class GetCarPlateResponse {
 
     private Integer  kilometer;
 
@@ -39,7 +41,8 @@ public class GetByIdCarResponse {
 
     private String location;
 
-    private String  modelName;
+    private GetListModelResponse model;
 
-    private String colorName;
+    private GetListColorResponse color;
+
 }

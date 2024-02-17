@@ -1,6 +1,7 @@
 package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.services.abstracts.RentalService;
 import com.tobeto.pair9.services.dtos.rental.requests.AddRentalRequest;
 import com.tobeto.pair9.services.dtos.rental.requests.UpdateRentalRequest;
@@ -21,7 +22,7 @@ public class RentalsController {
     private RentalService rentalService;
 
     @GetMapping("/getAll")
-    public BaseResponse<List<GetListRentalResponse>> getAll(){
+    public DataResult<List<GetListRentalResponse>> getAll(){
         return rentalService.getAll();
     }
 

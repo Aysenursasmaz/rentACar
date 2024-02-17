@@ -2,6 +2,7 @@ package com.tobeto.pair9.services.concretes;
 
 import com.tobeto.pair9.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
+import com.tobeto.pair9.core.utilities.results.DataResult;
 import com.tobeto.pair9.core.utilities.results.Messages;
 import com.tobeto.pair9.entities.concretes.Customer;
 import com.tobeto.pair9.repositories.CustomerRepository;
@@ -25,12 +26,12 @@ public class CustomerManager implements CustomerService {
     private final UserService UserService;
 
     @Override
-    public BaseResponse<List<GetListCustomerResponse>> getAll() {
+    public DataResult<List<GetListCustomerResponse>> getAll() {
         List<Customer> customers = customerRepository.findAll();
         var result = customers.stream()
                 .map(customer -> this.modelMapperService.forResponse()
                         .map(customer,GetListCustomerResponse.class)).toList();
-        return new BaseResponse<>(true,result);
+        return new DataResult<>(result);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class CustomerManager implements CustomerService {
         customer.setId(null);
         customer.setUser(UserService.getUserByUsername(request.getUsername()));
         this.customerRepository.save(customer);
-        return new BaseResponse<>(true, Messages.customerAdded);
+        return new BaseResponse(true, Messages.customerAdded);
     }
 
     @Override
@@ -54,13 +55,13 @@ public class CustomerManager implements CustomerService {
         Customer customer = this.modelMapperService.forRequest()
                 .map(request,Customer.class);
         this.customerRepository.save(customer);
-        return new BaseResponse<>(true, Messages.customerUpdated);
+        return new BaseResponse(true, Messages.customerUpdated);
     }
 
     @Override
     public BaseResponse delete(Integer id) {
         this.customerRepository.deleteById(id);
-        return new BaseResponse<>(true, Messages.customerDeleted);
+        return new BaseResponse(true, Messages.customerDeleted);
     }
 
     @Override

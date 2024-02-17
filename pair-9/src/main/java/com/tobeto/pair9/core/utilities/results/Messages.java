@@ -36,6 +36,8 @@ public class Messages {
     public static final String userAdded ="User added successfully";
     public static final String userUpdated ="User updated successfully";
     public static final String userDeleted ="User updated successfully";
+    public static final String tokenIsNotFound = "The token is not found";
+    public static final String tokenIsNotValid = "The token is not valid";
 
     //Invoice Messages
     public static final String invoiceAdded ="Invoice added successfully";
@@ -59,5 +61,28 @@ public class Messages {
     public static final String modelAdded ="Model added successfully";
     public static final String modelUpdated ="Model updated successfully";
     public static final String modelDeleted ="Model updated successfully";
+
+    //ForgotPassword Messages
+    public static final String forgotPasswordMailContent1 = "Hello,<br/><br/>" +
+            "We're sending you this email because you requested a password reset.<br/>" +
+            "Click on this link to create a new password:<br/><br/>";
+
+    public static final String forgotPasswordMailContent2 = "<br/><br/>If you didn't request a password reset, " +
+            "you can ignore this email.<br/>" +
+            "Your password will not be changed.<br/><br/>" +
+            "Thank You,<br/>" +
+            "The Pair-9 Team :)";
+
+    public static final String emailLink = "http://localhost:3000/reset-password/";
+    public static final String email = "rentacarpair9@gmail.com";
+    public static final String emailSubject = "Password Reset Link";
+    public static final String errorSendingEmail = "Error While Sending Email";
+    public static final String successSendingEmail = "Email sent successfully";
+    public static final String tokenIsAlreadyUsed = "The token is already used";
+    public static final String tokenIsExpired = "The token is expired";
+    public static final String passwordChanged = "Password changed successfully";
+
+
+
 
 }
