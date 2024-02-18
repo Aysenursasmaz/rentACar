@@ -23,4 +23,5 @@ public class DataResult<T> extends BaseResponse {
         super();
         this.data = data;
     }
+
 }

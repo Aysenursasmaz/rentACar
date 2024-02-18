@@ -14,7 +14,9 @@ import com.tobeto.pair9.services.rules.CarBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,5 +81,24 @@ public class CarManager implements CarService {
         Car car = carBusinessRules.getCarByPlate(plate);
         var result =  this.modelMapperService.forResponse().map(car, GetCarPlateResponse.class);
         return new DataResult<>(result);
+    }
+
+    @Override
+    public List<String> getAllCities() {
+        List<Car> cars = carRepository.findAll();
+        Set<String> city = cars.stream()
+                .map(Car::getLocation)
+                .collect(Collectors.toSet());
+
+        List<String> citiesList = new ArrayList<>(city);
+
+        return citiesList;
+    }
+
+    @Override
+    public BaseResponse deleteByPlate(String plate) {
+        Car car =  carBusinessRules.getCarByPlate(plate);
+        carRepository.delete(car);
+        return new DataResult<>(true,Messages.carDeleted);
     }
 }

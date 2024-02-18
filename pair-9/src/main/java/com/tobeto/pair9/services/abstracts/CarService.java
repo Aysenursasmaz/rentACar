@@ -8,6 +8,7 @@ import com.tobeto.pair9.services.dtos.car.responses.GetByIdCarResponse;
 import com.tobeto.pair9.services.dtos.car.responses.GetListCarResponse;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CarService{
 
@@ -24,5 +25,9 @@ public interface CarService{
     boolean isExistById(Integer id);
 
     DataResult getCarByPlate(String plate);
+
+    List<String> getAllCities();
+
+    BaseResponse deleteByPlate(String plate);
 
 }

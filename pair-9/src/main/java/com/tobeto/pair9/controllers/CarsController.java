@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @RestController
@@ -34,6 +35,10 @@ public class CarsController {
         return carService.getById(id);
     }
 
+    @GetMapping("/getLocation")
+    public List<String> getAllLocation(){
+        return carService.getAllCities();
+    }
 
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
@@ -51,6 +56,11 @@ public class CarsController {
     @DeleteMapping("{id}")
     public BaseResponse delete(@PathVariable Integer id){
         return carService.delete(id);
+    }
+
+    @DeleteMapping("/plate")
+    public BaseResponse deleteByPlate(@PathVariable String plate) {
+        return carService.deleteByPlate(plate);
     }
 
     @GetMapping("/getByPlate")

@@ -2,11 +2,9 @@ package com.tobeto.pair9.controllers;
 
 import com.tobeto.pair9.core.utilities.results.BaseResponse;
 import com.tobeto.pair9.services.abstracts.ForgotPasswordService;
-import jakarta.mail.MessagingException;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.UnsupportedEncodingException;
 
 @AllArgsConstructor
 @RestController
@@ -17,7 +15,7 @@ public class ForgotPasswordController {
     private final ForgotPasswordService forgotPasswordService;
 
     @PostMapping("/send-email") //Forgot Password
-    public BaseResponse savePasswordRequest(@RequestParam("email")String email) throws MessagingException, UnsupportedEncodingException {
+    public BaseResponse savePasswordRequest(@RequestParam("email")String email)  {
          return forgotPasswordService.checkUserDetails(email);
     }
 

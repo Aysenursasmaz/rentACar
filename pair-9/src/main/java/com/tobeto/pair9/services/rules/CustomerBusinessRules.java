@@ -15,7 +15,7 @@ public class CustomerBusinessRules {
     private final UserService userService;
 
     public void isExistCustomerByIdentityNumber(String identityNumber){
-        if(customerRepository.existsCustomerByIdentityNumber(identityNumber)){
+        if(!customerRepository.existsCustomerByIdentityNumber(identityNumber)){
             throw new CustomerBusinessException(Messages.customerAlreadySaved);
         }
 

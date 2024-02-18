@@ -11,4 +11,6 @@ public interface CarRepository extends JpaRepository<Car,Integer> {
 
 
     Optional<Car>  getCarByPlate(String plate);
+
+
 }
