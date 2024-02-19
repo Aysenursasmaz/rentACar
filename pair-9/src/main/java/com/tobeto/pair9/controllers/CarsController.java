@@ -58,8 +58,8 @@ public class CarsController {
         return carService.delete(id);
     }
 
-    @DeleteMapping("/plate")
-    public BaseResponse deleteByPlate(@PathVariable String plate) {
+    @DeleteMapping("/deleteByPlate")
+    public BaseResponse deleteByPlate(@RequestParam String plate) {
         return carService.deleteByPlate(plate);
     }
 

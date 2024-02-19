@@ -39,8 +39,6 @@ public class CustomerManager implements CustomerService {
         if (customerRepository.existsCustomerByIdentityNumber(request.getIdentityNumber()) || customerRepository.existsCustomerByUserUsername(request.getUsername())){
             return new BaseResponse(true, "Customer already exists");
         }
-        customerBusinessRules.isExistCustomerByIdentityNumber(request.getIdentityNumber());
-        customerBusinessRules.isExistUserByUserName(request.getUsername());
         Customer customer = this.modelMapperService.forRequest().map(request,Customer.class);
         customer.setId(null);
         customer.setUser(UserService.getUserByUsername(request.getUsername()));

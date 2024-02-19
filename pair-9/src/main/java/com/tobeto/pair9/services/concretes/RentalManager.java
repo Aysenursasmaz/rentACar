@@ -43,7 +43,7 @@ public class RentalManager implements RentalService {
         rental.setUser(rentalBusinessRules.getUserByUsername(request.getUsername()));
         this.rentalRepository.save(rental);
         var result = this.modelMapperService.forResponse().map(rental,AddRentalResponse.class);
-        return new BaseResponse(true,Messages.rentalAdded);
+        return new DataResult<>(true, Messages.rentalAdded, result);
     }
 
     @Override

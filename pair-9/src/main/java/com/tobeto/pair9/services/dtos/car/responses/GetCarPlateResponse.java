@@ -13,6 +13,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class GetCarPlateResponse {
 
+    private Integer id;
+
     private Integer  kilometer;
 
     private String plate;
