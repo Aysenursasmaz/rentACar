@@ -23,7 +23,7 @@ public class Car extends BaseEntity {
     private String plate;
 
     @Column(name = "model_year")
-    private short modelYear;
+    private int modelYear;
 
     @Column(name = "daily_price")
     private Float dailyPrice;
@@ -54,6 +54,9 @@ public class Car extends BaseEntity {
 
     @Column(name = "image_path")
     private String imagePath;
+
+    @Column(name = "location")
+    private String location;
 
     @ManyToOne
     @JoinColumn(name = "model_id")
