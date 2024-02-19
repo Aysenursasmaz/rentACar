@@ -31,4 +31,5 @@ public class CustomerBusinessRules {
             throw new CustomerBusinessException(Messages.userIsNotFound);
         }
     }
+
 }

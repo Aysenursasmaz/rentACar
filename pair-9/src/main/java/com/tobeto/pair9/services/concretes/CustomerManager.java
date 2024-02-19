@@ -37,8 +37,9 @@ public class CustomerManager implements CustomerService {
     @Override
     public BaseResponse add(AddCustomerRequest request) {
         if (customerRepository.existsCustomerByIdentityNumber(request.getIdentityNumber()) || customerRepository.existsCustomerByUserUsername(request.getUsername())){
-            return new BaseResponse(true, "Customer already exists");
+            return new BaseResponse(true, Messages.customerAlreadySaved);
         }
+
         Customer customer = this.modelMapperService.forRequest().map(request,Customer.class);
         customer.setId(null);
         customer.setUser(UserService.getUserByUsername(request.getUsername()));
