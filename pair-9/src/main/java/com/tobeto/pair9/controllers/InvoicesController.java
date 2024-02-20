@@ -23,14 +23,14 @@ public class InvoicesController {
     private InvoiceService invoiceService;
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAuthority('admin:read')")
+
     public DataResult<List<GetListInvoiceResponse>> getAll(){
         return invoiceService.getAll();
     }
 
 
     @PostMapping("/add")
-    @PreAuthorize("hasAuthority('admin:add')")
+
     @ResponseStatus(code = HttpStatus.CREATED)
     public BaseResponse add(@RequestBody @Valid AddInvoiceRequest request){
         return invoiceService.add(request);
@@ -38,14 +38,14 @@ public class InvoicesController {
 
 
     @PutMapping("/update")
-    @PreAuthorize("hasAuthority('admin:update')")
+
     public BaseResponse update(@RequestBody @Valid UpdateInvoiceRequest request){
        return this.invoiceService.update(request);
     }
 
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasAuthority('admin:delete')")
+
     public BaseResponse delete(@PathVariable Integer id){
         return invoiceService.delete(id);
     }

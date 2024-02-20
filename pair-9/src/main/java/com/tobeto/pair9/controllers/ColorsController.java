@@ -23,7 +23,7 @@ public class ColorsController {
     private ColorService colorService;
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAuthority('admin:read')")
+
     public DataResult<List<GetListColorResponse>> getAll(){
         return colorService.getAll();
     }
@@ -36,21 +36,21 @@ public class ColorsController {
 
     @PostMapping("/add")
     @ResponseStatus(code = HttpStatus.CREATED)
-    @PreAuthorize("hasAuthority('admin:add')")
+
     public BaseResponse add(@RequestBody @Valid AddColorRequest request){
         return colorService.add(request);
     }
 
 
     @PutMapping("/update")
-    @PreAuthorize("hasAuthority('admin:update')")
+
     public BaseResponse update(@RequestBody @Valid UpdateColorRequest request){
         return colorService.update(request);
     }
 
 
     @DeleteMapping("{id}")
-    @PreAuthorize("hasAuthority('admin:delete')")
+
     public BaseResponse delete(@PathVariable Integer id){
         return colorService.delete(id);
     }
