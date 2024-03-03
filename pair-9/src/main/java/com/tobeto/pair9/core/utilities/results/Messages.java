@@ -13,7 +13,7 @@ public class Messages {
     public static final String carIsNotFound ="Car is not found";
     public static final String carAdded ="Car added successfully";
     public static final String carUpdated ="Car updated successfully";
-    public static final String carDeleted ="Car updated successfully";
+    public static final String carDeleted ="Car deleted successfully";
     public static final String carAlreadySaved ="There cannot be two vehicles with the same license plate!";
 
     //Color Messages
